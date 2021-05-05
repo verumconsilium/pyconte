@@ -9,7 +9,7 @@ with open('pyconte/_version.py') as f:
     exec(f.read(), pkg_vars)
 
 setup(
-    name='pycfdi',
+    name='pyconte',
     author='VECO',
     version=pkg_vars['__version__'],
     include_package_data=True,
