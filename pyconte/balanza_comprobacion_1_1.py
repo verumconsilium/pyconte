@@ -59,6 +59,7 @@ class Balanza:
     class Meta:
         namespace = "www.sat.gob.mx/esquemas/ContabilidadE/1_1/BalanzaComprobacion"
         namespace_prefix = "BCE"
+        schema_location = "http://www.sat.gob.mx/esquemas/ContabilidadE/1_1/BalanzaComprobacion/BalanzaComprobacion_1_1.xsd"
 
     ctas: List["Balanza.Ctas"] = field(
         default_factory=list,
