@@ -34,6 +34,7 @@ class Catalogo:
     class Meta:
         namespace = "http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/CatalogoCuentas"
         namespace_prefix = "catalogocuentas"
+        schema_location = "http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/CatalogoCuentas/CatalogoCuentas_1_3.xsd"
 
     ctas: List["Catalogo.Ctas"] = field(
         default_factory=list,
