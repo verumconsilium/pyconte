@@ -1,5 +1,4 @@
 from dataclasses import dataclass, field
-from enum import Enum
 from typing import List, Optional
 
 __NAMESPACE__ = "http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/CatalogoCuentas"

@@ -1,27 +1,9 @@
 from dataclasses import dataclass, field
 from decimal import Decimal
-from enum import Enum
 from typing import List, Optional
 from xsdata.models.datatype import XmlDate
 
-__NAMESPACE__ = "www.sat.gob.mx/esquemas/ContabilidadE/1_1/BalanzaComprobacion"
-
-
-class BalanzaMes(Enum):
-    VALUE_01 = "01"
-    VALUE_02 = "02"
-    VALUE_03 = "03"
-    VALUE_04 = "04"
-    VALUE_05 = "05"
-    VALUE_06 = "06"
-    VALUE_07 = "07"
-    VALUE_08 = "08"
-    VALUE_09 = "09"
-    VALUE_10 = "10"
-    VALUE_11 = "11"
-    VALUE_12 = "12"
-    VALUE_13 = "13"
-
+__NAMESPACE__ = "http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/BalanzaComprobacion"
 
 @dataclass
 class Balanza:
@@ -43,8 +25,7 @@ class Balanza:
         de la balanza (N - Normal; C - Complementaria)
     :ivar fecha_mod_bal: Atributo opcional para expresar la fecha de la
         última modificación contable de la balanza de comprobación. Es
-        requerido cuando el atributo TipoEnvio = C. Se convierte en
-        requerido cuando se cuente con la información.
+        requerido cuando el tipo de Envío es complementario.
     :ivar sello: Atributo opcional para contener el sello digital del
         archivo de contabilidad electrónica. El sello deberá ser
         expresado cómo una cadena de texto en formato Base 64
@@ -57,9 +38,9 @@ class Balanza:
         contabilidad electrónica como texto, en formato base 64.
     """
     class Meta:
-        namespace = "www.sat.gob.mx/esquemas/ContabilidadE/1_1/BalanzaComprobacion"
+        namespace = "http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/BalanzaComprobacion"
         namespace_prefix = "BCE"
-        schema_location = "http://www.sat.gob.mx/esquemas/ContabilidadE/1_1/BalanzaComprobacion/BalanzaComprobacion_1_1.xsd"
+        schema_location = "http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/BalanzaComprobacion/BalanzaComprobacion_1_3.xsd"
 
     ctas: List["Balanza.Ctas"] = field(
         default_factory=list,
@@ -71,7 +52,7 @@ class Balanza:
     )
     version: str = field(
         init=False,
-        default="1.1",
+        default="1.3",
         metadata={
             "name": "Version",
             "type": "Attribute",
@@ -90,7 +71,7 @@ class Balanza:
             "pattern": r"[A-ZÑ&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Z0-9]?[A-Z0-9]?[0-9A-Z]?",
         }
     )
-    mes: Optional[BalanzaMes] = field(
+    mes: Optional[str] = field(
         default=None,
         metadata={
             "name": "Mes",
@@ -122,6 +103,7 @@ class Balanza:
         metadata={
             "name": "FechaModBal",
             "type": "Attribute",
+            "min_inclusive": XmlDate(2015, 1, 1),
         }
     )
     sello: Optional[str] = field(
@@ -190,8 +172,8 @@ class Balanza:
                 "name": "SaldoIni",
                 "type": "Attribute",
                 "required": True,
-                "min_exclusive": Decimal("-99999999999999.99"),
-                "max_inclusive": Decimal("99999999999999.99"),
+                "min_exclusive": Decimal("-9999999999999999999999.99"),
+                "max_inclusive": Decimal("9999999999999999999999.99"),
                 "fraction_digits": 2,
                 "white_space": "collapse",
             }
@@ -202,8 +184,8 @@ class Balanza:
                 "name": "Debe",
                 "type": "Attribute",
                 "required": True,
-                "min_exclusive": Decimal("-99999999999999.99"),
-                "max_inclusive": Decimal("99999999999999.99"),
+                "min_exclusive": Decimal("-9999999999999999999999.99"),
+                "max_inclusive": Decimal("9999999999999999999999.99"),
                 "fraction_digits": 2,
                 "white_space": "collapse",
             }
@@ -214,8 +196,8 @@ class Balanza:
                 "name": "Haber",
                 "type": "Attribute",
                 "required": True,
-                "min_exclusive": Decimal("-99999999999999.99"),
-                "max_inclusive": Decimal("99999999999999.99"),
+                "min_exclusive": Decimal("-9999999999999999999999.99"),
+                "max_inclusive": Decimal("9999999999999999999999.99"),
                 "fraction_digits": 2,
                 "white_space": "collapse",
             }
@@ -226,8 +208,8 @@ class Balanza:
                 "name": "SaldoFin",
                 "type": "Attribute",
                 "required": True,
-                "min_exclusive": Decimal("-99999999999999.99"),
-                "max_inclusive": Decimal("99999999999999.99"),
+                "min_exclusive": Decimal("-9999999999999999999999.99"),
+                "max_inclusive": Decimal("9999999999999999999999.99"),
                 "fraction_digits": 2,
                 "white_space": "collapse",
             }
